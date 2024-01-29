@@ -1,13 +1,24 @@
-
+"use client"
 import { ReactNode } from "react";
-interface Props {
+
+type ButtonType = "submit" | "reset" | "button";
+interface Action {
+    value: string;
+    type: ButtonType;
+    url?: string;
+    onClick?: (key: any) => void;
+}
+interface TableProps {
     data: any;
+    actions?: Action[];
+
 }
 
 import Button from "./Button";
 
 
-export default function Table({ data }: Props): JSX.Element {
+export default function Table({ data, actions }: TableProps): JSX.Element {
+    if (!data) return (<></>)
     return (
         <table className="max-w-[50%]">
             <thead className="bg-gray-200 border-b">
@@ -19,7 +30,12 @@ export default function Table({ data }: Props): JSX.Element {
                             </th>
                         ))
                     }
-                    <th>Acciones</th>
+                    {
+                        actions && (
+                            <th className="text-sm font-medium text-gray-900 px-6 py-4 text-left">Acciones</th>
+                        )
+                    }
+
                 </tr>
             </thead>
             <tbody>
@@ -31,12 +47,21 @@ export default function Table({ data }: Props): JSX.Element {
                                     {value as ReactNode}
                                 </td>
                             ))}
-                            <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">
-                                <div className="flex flex-row space-x-2">
-                                    <Button value="Aceptar" type="button" url={`/api/accept-user/${item.Boleta}`} />
-                                    <Button value="Borrar" type="button" url={`/api/reject-user/${item.Boleta}`} />
-                                </div>
-                            </td>
+                            {actions && (
+                                <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">
+                                    <div className="flex flex-row space-x-2">
+                                        {actions.map((action, index) => (
+                                            <Button
+                                                key={index}
+                                                value={action.value}
+                                                type={action.type}
+                                                url={action.url}
+                                                onClick={() => action.onClick?.(item.key)}
+                                            />
+                                        ))}
+                                    </div>
+                                </td>)}
+
                         </tr>
                     ))
                 }

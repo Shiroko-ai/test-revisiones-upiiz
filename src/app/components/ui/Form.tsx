@@ -1,5 +1,7 @@
 'use client'
 import { useState } from "react";
+import IPNLogo from "../../../../public/Logo_IPN.png"
+import Image from "next/image"
 type FormProps = {
   title: string;
   subtitle?: string;
@@ -39,7 +41,7 @@ export default function Form({ title, subtitle, children, url }: FormProps): JSX
 
         </div>
         <div className="col-span-1">
-          <img src="../../public/Logo_IPN.png" className="h-20 mx-auto" />
+          <Image src={IPNLogo} className="mx-auto block max-w-md" alt="VIGORE Logo" height='100' />
         </div>
       </div>
       <form className="mt-4 mb-2 w-full" onSubmit={handleSubmit}>

@@ -15,6 +15,6 @@ Este proyecto está diseñado para el proceso de Anteproyecto de la UPIIZ y tien
 
 5. Una vez instaladas las dependencias, puedes ejecutar el proyecto con el siguiente comando:
 
-```bash
-npm run dev
-```
+    ```bash
+    npm start
+    ```

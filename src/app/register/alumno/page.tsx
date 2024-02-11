@@ -39,9 +39,7 @@ export default function RegisterAlumnoPage(): JSX.Element {
                     />
                     <Input placeholder="Boleta" type="text" name="boleta" />
                     <Select label="Carrera" id="carrera" name="carrera">
-                        <option value="ISC"
-                        >Ingeniería en Sistemas Computacionales</option
-                        >
+                        <option value="ISC">Ingeniería en Sistemas Computacionales</option>
                         <option value="IMEC">Ingeniería en Mecatrónica</option>
                         <option value="IAM">Ingeniería Ambiental</option>
                         <option value="IAL">Ingeniería en Alimentos</option>

@@ -4,6 +4,7 @@ import Table from "@/app/components/ui/Table"
 import { ButtonType } from "../../../../types/types"
 import { useState } from "react"
 import { useEffect } from "react"
+import Navbar from "@/app/components/ui/Navbar"
 const actions = [
     {
         value: "Aceptar",
@@ -32,8 +33,9 @@ export default function AcceptUsersPage() {
     }, [])
     return (
         <>
+            <Navbar />
             <CenterContainer>
-                <Table data={users} actions={actions} />
+                <Table data={users} actions={actions} name="Alumnos" />
             </CenterContainer>
         </>
     )

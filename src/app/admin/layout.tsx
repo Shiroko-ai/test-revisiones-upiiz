@@ -1,6 +1,7 @@
 import type { Metadata } from 'next'
+import '../globals.css'
+import Navbar from '../components/ui/Navbar'
 import { Roboto } from 'next/font/google'
-import './globals.css'
 
 const roboto = Roboto({ weight: '400', subsets: ['latin'], display: 'swap' })
 
@@ -12,7 +13,10 @@ export const metadata: Metadata = {
 export default function RootLayout ({ children }: Readonly<{ children: React.ReactNode }>): JSX.Element {
   return (
     <html lang="en">
-      <body className={roboto.className}>{children}</body>
+      <body className={roboto.className}>{children}
+    <Navbar />
+    {children}
+    </body>
     </html>
   )
 }

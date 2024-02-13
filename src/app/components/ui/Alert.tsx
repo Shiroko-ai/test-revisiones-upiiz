@@ -1,10 +1,9 @@
-
 interface Props {
-    description: string;
+  description: string
 }
 
-export default function Alert({ description }: Props): JSX.Element {
-    return (
+export default function Alert ({ description }: Props): JSX.Element {
+  return (
         <div role="alert" className="mx-auto my-auto max-w-[50%]">
             <div className="bg-red-500 text-white font-bold rounded-t px-4 py-2">Error</div>
             <div
@@ -13,5 +12,5 @@ export default function Alert({ description }: Props): JSX.Element {
                 <p>{description}</p>
             </div>
         </div>
-    )
+  )
 }

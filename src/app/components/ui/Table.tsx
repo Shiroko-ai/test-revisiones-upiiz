@@ -1,27 +1,26 @@
-"use client"
-import { ReactNode } from "react";
+'use client'
+import { type ReactNode } from 'react'
 
-type ButtonType = "submit" | "reset" | "button";
+import Button from './Button'
+
+type ButtonType = 'submit' | 'reset' | 'button'
 interface Action {
-    value: string;
-    type: ButtonType;
-    url?: string;
-    onClick?: (key: any) => void;
+  value: string
+  type: ButtonType
+  url?: string
+  onClick?: (key: any) => void
 }
 interface TableProps {
-    data: any;
-    actions?: Action[];
-    name?: string;
+  data: any
+  actions?: Action[]
+  name?: string
 }
 
-import Button from "./Button";
-
-
-export default function Table({ data, actions, name }: TableProps): JSX.Element {
-    if (!data) return (<></>)
-    return (
+export default function Table ({ data, actions, name }: TableProps): JSX.Element {
+  if (!data) return (<></>)
+  return (
         <>
-            <h1 className="text-2xl font-bold text-gray-900">{name}</h1>
+            <h1 className="text-2xl font-bold text-gray-900 mb-10">{name}</h1>
             <table className="max-w-[50%] w-full">
                 <thead className="bg-gray-200 border-b">
                     <tr>
@@ -70,5 +69,5 @@ export default function Table({ data, actions, name }: TableProps): JSX.Element 
                 </tbody>
             </table>
         </>
-    )
+  )
 }

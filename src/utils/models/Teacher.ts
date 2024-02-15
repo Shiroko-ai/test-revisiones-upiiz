@@ -1,11 +1,13 @@
 import { Schema, model, models } from 'mongoose'
+import { nanoid } from 'nanoid'
 
-const DocenteSchema = new Schema({
+const TeacherSchema = new Schema({
   id: {
     type: String,
-    required: true
+    required: true,
+    default: () => nanoid(10)
   },
-  employeeName: {
+  employeeNumber: {
     type: String,
     required: true,
     maxlength: 10
@@ -32,9 +34,15 @@ const DocenteSchema = new Schema({
   },
   academy: {
     type: String,
+    enum: ['Sistemas', 'Matemáticas', 'Ambiental'],
     required: true
+  },
+  status: {
+    type: String,
+    enum: ['pending', 'active'],
+    default: 'pending'
   }
 })
 
 // eslint-disable-next-line @typescript-eslint/strict-boolean-expressions
-export default models.Docente || model('Docente', DocenteSchema)
+export default models.Teacher || model('Teacher', TeacherSchema)

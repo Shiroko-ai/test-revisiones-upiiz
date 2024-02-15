@@ -9,15 +9,17 @@ interface Props {
 
 export default function Button ({ type, value, url, onClick }: Props): JSX.Element {
   const button = (
-        <button
-            className="block w-full transform rounded-md bg-primary px-4 py-2 text-center font-medium
-            capitalize tracking-wide text-white transition-colors duration-300 hover:bg-hover
-            focus:outline-none focus:ring focus:ring-hover focus:ring-opacity-80"
-            type={type}
-            onClick={onClick}
-        >
-            {value}
-        </button>
+    <div>
+      <button
+        className="flex w-full justify-center rounded-md bg-primary px-3 py-1.5 text-sm font-semibold leading-6
+        text-white shadow-sm hover:bg-hover focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2
+        focus-visible:outline-primary"
+        onClick={onClick}
+        type={type}
+      >
+        {value}
+      </button>
+    </div>
   )
   return (
         <>

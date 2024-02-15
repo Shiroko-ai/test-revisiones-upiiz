@@ -8,6 +8,7 @@ const friendlyHeadings = {
 }
 export default function setFriendlyHeadings (data: Array<Record<string, string>>): Array<Record<string, string>> {
   const newData = data.map((item) => {
+    console.log(item)
     const newItem: Record<string, string> = {}
     for (const key in item) {
       newItem[(friendlyHeadings as Record<string, string>)[key]] = item[key]

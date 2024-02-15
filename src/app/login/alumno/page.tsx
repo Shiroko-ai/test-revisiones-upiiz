@@ -1,10 +1,9 @@
-
-import CenterContainer from "@/app/components/containers/CenterContainer"
-import Form from "@/app/components/ui/Form"
-import Input from "@/app/components/ui/Input"
-import Button from "@/app/components/ui/Button"
-export default function AdminLogin(): JSX.Element {
-    return (
+import CenterContainer from '@/app/components/containers/CenterContainer'
+import Form from '@/app/components/ui/Form'
+import Input from '@/app/components/ui/Input'
+import Button from '@/app/components/ui/Button'
+export default function AdminLogin (): JSX.Element {
+  return (
         <CenterContainer>
             <Form
                 title="Bienvenido, alumno"
@@ -23,5 +22,5 @@ export default function AdminLogin(): JSX.Element {
                 <Button type="submit" value="Iniciar sesión" />
             </Form>
         </CenterContainer>
-    )
+  )
 }

@@ -1,7 +1,5 @@
 'use client'
 import { useState } from 'react'
-import IPNLogo from '../../../../public/Logo_IPN.png'
-import Image from 'next/image'
 import IPNSvg from './logos/IPNSvg'
 interface FormProps {
   title: string

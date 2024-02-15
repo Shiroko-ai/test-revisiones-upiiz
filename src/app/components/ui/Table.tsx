@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/strict-boolean-expressions */
 'use client'
 import { type ReactNode } from 'react'
 
@@ -25,14 +26,14 @@ export default function Table ({ data, actions, name }: TableProps): JSX.Element
                 <thead className="bg-gray-200 border-b">
                     <tr>
                         {
-                            Object.keys(data[0]).map((key: string) => (
+                            Object.keys(data[0] as any[]).map((key: string) => (
                                 <th className="text-sm font-medium text-gray-900 px-6 py-4 text-left" key={key}>
                                     {key}
                                 </th>
                             ))
                         }
                         {
-                            actions && (
+                            actions !== null && (
                                 <th className="text-sm font-medium text-gray-900 px-6 py-4 text-left">Acciones</th>
                             )
                         }
@@ -43,7 +44,7 @@ export default function Table ({ data, actions, name }: TableProps): JSX.Element
                     {
                         data.map((item: any) => (
                             <tr className="bg-white border-b transition duration-300 ease-in-out hover:bg-gray-100" key={item.Boleta}>
-                                {Object.entries(item).map(([key, value]) => (
+                                {Object.entries(item as Record<string, any>).map(([key, value]) => (
                                     <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900" key={key}>
                                         {value as ReactNode}
                                     </td>

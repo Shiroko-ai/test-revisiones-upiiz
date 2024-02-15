@@ -1,6 +1,6 @@
 'use client'
 import { useState } from 'react'
-import { Lato } from 'next/font/google'
+
 type InputType = 'text' | 'password' | 'email' | 'number'
 
 interface InputProps {
@@ -9,7 +9,6 @@ interface InputProps {
   name: string
   [key: string]: any
 }
-const lato = Lato({ weight: '400', subsets: ['latin'], display: 'swap' })
 export default function Input ({ type, placeholder, name, ...rest }: InputProps): JSX.Element {
   const [value, setValue] = useState('')
   const [error, setError] = useState(false)
@@ -50,6 +49,7 @@ export default function Input ({ type, placeholder, name, ...rest }: InputProps)
                 value={value}
                 {...rest}
               />
+              {error && <p className="text-red-500 text-xs">Email no valido</p>}
             </div>
           </div>
   )

@@ -24,6 +24,7 @@ export default function Button ({ type, value, url, onClick }: Props): JSX.Eleme
   return (
         <>
             {
+                // eslint-disable-next-line @typescript-eslint/strict-boolean-expressions
                 url
                   ? (
                     <a href={url} >

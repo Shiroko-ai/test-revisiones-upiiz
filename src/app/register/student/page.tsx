@@ -4,7 +4,7 @@ import Select from '@/app/components/ui/Select'
 import Button from '@/app/components/ui/Button'
 export default async function RegisterAlumnoPage (): Promise<JSX.Element> {
   async function fetchCareers (): Promise<Array<Record<string, string>>> {
-    const response = await fetch(`${process.env.URL}/api/careers`)
+    const response = await fetch('/api/careers')
     const data = await response.json()
     return data
   }

@@ -24,7 +24,7 @@ export default function AcceptUsersPage (): JSX.Element {
   const [users, setUsers] = useState<Array<Record<string, unknown>>>()
   useEffect(() => {
     const fetchUsers = async (): Promise<void> => {
-      const response = await fetch('http://localhost:3000/api/pending-users')
+      const response = await fetch('/api/pending-users')
       const data = await response.json()
       setUsers(data.data as Array<Record<string, unknown>>)
     }

@@ -1,24 +1,25 @@
 import Student from './models/Student'
-import Carreer from './models/Carreer'
+import Carreer from './models/Career'
 import validator from 'validator'
 import Teacher from './models/Teacher'
+import Admin from './models/Admin'
 interface FormData {
-  nombre: string | null
-  correo: string | null
+  name: string | null
+  email: string | null
   password: string | null
-  confirm_password: string | null
-  telefono: string | null
-  boleta: string | null
-  carrera: string | null
+  confirmPassword: string | null
+  phone: string | null
+  ticketNumber: string | null
+  career: string | null
 }
 const friendlyNames: Record<keyof FormData, string> = {
-  nombre: 'Nombre',
-  correo: 'Correo electrónico',
+  name: 'Nombre',
+  email: 'Correo electrónico',
   password: 'Contraseña',
-  confirm_password: 'Confirmar contraseña',
-  telefono: 'Telefono',
-  boleta: 'Boleta',
-  carrera: 'Carrera'
+  confirmPassword: 'Confirmar contraseña',
+  phone: 'Telefono',
+  ticketNumber: 'Boleta',
+  career: 'Carrera'
 }
 export default async function validateFields (FIELDS: Record<string, unknown>, USER_TYPE: string): Promise<string | null | undefined> {
   const errors: string[] = []
@@ -36,19 +37,22 @@ export default async function validateFields (FIELDS: Record<string, unknown>, U
   if (errors.length > 0) {
     return errors.join(', ')
   }
-  if (FIELDS.password !== FIELDS.confirm_password) {
+  if (FIELDS.password !== FIELDS.confirmPassword) {
     errors.push('las contraseñas no coinciden')
   }
   if (!validator.isStrongPassword(FIELDS.password as string)) {
     errors.push('La contraseña debe de tener por lo menos 8 caracteres, una minúscula, una mayúscula, un número y un símbolo')
   }
-  const REPEATED_EMAIL = await Promise.all([Student.findOne({ email: FIELDS.email }), Teacher.findOne({ email: FIELDS.email })])
-
-  if (REPEATED_EMAIL !== undefined || REPEATED_EMAIL !== null) {
+  const REPEATED_EMAIL = (await Promise.all([
+    Student.findOne({ email: FIELDS.email }).exec(),
+    Teacher.findOne({ email: FIELDS.email }).exec(),
+    Admin.findOne({ email: FIELDS.email }).exec()
+  ])).filter(result => result !== null)
+  if (REPEATED_EMAIL.length > 0) {
     errors.push('El correo ya existe')
   }
   if (USER_TYPE === 'STUDENT') {
-    const carreers = await Carreer.find({}, { _id: 1 })
+    const carreers = (await Carreer.find({}, { _id: 1 }).lean()).map((carrer: any) => carrer._id.toString())
     if (!validator.isEmail(FIELDS.email as string)) {
       errors.push('El correo no es valido')
     }
@@ -58,31 +62,46 @@ export default async function validateFields (FIELDS: Record<string, unknown>, U
     if (!validator.isMobilePhone(FIELDS.phone as string)) {
       errors.push('El telefono no es valido')
     }
-    if (!validator.isNumeric(FIELDS.ticket_number as string)) {
+    if (!validator.isNumeric(FIELDS.ticketNumber as string)) {
       errors.push('La boleta no es valida')
     }
-
-    const TICKET_NUMBER = await Student.findOne({ boleta: FIELDS.boleta })
-    if (TICKET_NUMBER !== null || TICKET_NUMBER !== undefined) {
+    console.log(FIELDS.ticketNumber)
+    const TICKET_NUMBER = await Student.findOne({ ticketNumber: FIELDS.ticketNumber }).lean()
+    console.log(TICKET_NUMBER)
+    if (TICKET_NUMBER !== null && TICKET_NUMBER !== undefined) {
       errors.push('La boleta ya existe')
     }
     if (!carreers.includes(FIELDS.career)) {
+      console.log(FIELDS.career)
+      console.log(carreers)
       errors.push('La carrera no existe')
     }
-    return errors.join(', ')
-  } else if (USER_TYPE === 'teacher') {
-    if (!validator.isNumeric(FIELDS.numero_empleado as string)) {
+    if (errors.length > 0) {
+      return errors.join(', ')
+    }
+    return null
+  } else if (USER_TYPE === 'TEACHER') {
+    console.log('TEACHER')
+    if (!validator.isNumeric(FIELDS.employeeNumber as string, { no_symbols: true })) {
       errors.push('El número de empleado debe tener sólo números')
     }
-    if (!validator.isEmail(FIELDS.correo_institucional as string)) {
+    if (!validator.isEmail(FIELDS.institutionalEmail as string)) {
       errors.push('El correo institucional no es válido')
     }
 
-    if (!validator.isEmail(FIELDS.correo_electronico as string)) {
+    if (!validator.isEmail(FIELDS.email as string)) {
       errors.push('El correo electrónico no es válido')
     }
-    if (!validator.isMobilePhone(FIELDS.telefono as string)) {
+    if (!validator.isMobilePhone(FIELDS.phone as string)) {
       errors.push('El teléfono proporcionado no es válido')
     }
+    if (!validator.isAlpha(FIELDS.name as string, 'es-ES', { ignore: ' ' })) {
+      errors.push('El nombre solo debe contener letras')
+    }
+
+    if (errors.length > 0) {
+      return errors.join(', ')
+    }
+    return null
   }
 }

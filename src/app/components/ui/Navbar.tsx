@@ -39,12 +39,12 @@ export default function Navbar (): JSX.Element {
                     </div>
                     <div className="flex flex-1 items-center justify-center sm:items-stretch sm:justify-start">
                         <div className="flex flex-shrink-0 items-center">
-                            <IPNSvg className="h-8 w-auto" />
+                            <IPNSvg className="h-8 w-auto" stroke='#fff' fill='#6c1458'/>
                         </div>
                         <div className="hidden sm:ml-6 sm:block">
                             <div className="flex space-x-4">
-                                <a href="#" className="hover:bg-hover text-white rounded-md px-3 py-2 text-sm font-medium" aria-current="page">Aceptar usuarios</a>
-                                <a href="#" className="text-gray-300 hover:bg-hover hover:text-white rounded-md px-3 py-2 text-sm font-medium">Agregar materias</a>
+                                <a href="/admin/accept-users" className="hover:bg-hover text-white rounded-md px-3 py-2 text-sm font-medium" aria-current="page">Aceptar usuarios</a>
+                                <a href="/admin/add-carreers" className="text-gray-300 hover:bg-hover hover:text-white rounded-md px-3 py-2 text-sm font-medium">Agregar carreras</a>
                             </div>
                         </div>
                     </div>

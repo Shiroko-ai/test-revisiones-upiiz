@@ -1,15 +1,21 @@
+'use client'
 import Form from '@/app/components/ui/Form'
 import Input from '@/app/components/ui/Input'
 import Select from '@/app/components/ui/Select'
 import Button from '@/app/components/ui/Button'
-export default async function RegisterAlumnoPage (): Promise<JSX.Element> {
-  async function fetchCareers (): Promise<Array<Record<string, string>>> {
-    const response = await fetch(`${process.env.URL}/api/careers`)
-    const data = await response.json()
-    return data
-  }
+import { useEffect, useState } from 'react'
+export default function RegisterAlumnoPage (): JSX.Element {
+  const [careers, setCareers] = useState<Array<Record<string, any>>>([])
+  useEffect(() => {
+    async function fetchCareers (): Promise<void> {
+      const response = await fetch('/api/careers')
+      const data = await response.json()
+      console.log(data)
+      setCareers(data as Array<Record<string, any>>)
+    }
+    fetchCareers().catch(console.error)
+  }, [])
 
-  const careers = await fetchCareers()
   return (
         <>
 
@@ -45,7 +51,7 @@ export default async function RegisterAlumnoPage (): Promise<JSX.Element> {
                     />
                     <Input placeholder="Boleta" type="text" name="ticketNumber" />
                     <Select label="Carrera" id="carrera" name="career">
-                        {careers.map((career) => (<option value={career._id} key={career._id}>{career.name}</option>))}
+                        {careers.map((career: Record<string, any >) => (<option value={career._id} key={career._id}>{career.name}</option>))}
                     </Select>
                     <Button type="submit" value="Registrarse" />
                 </Form>

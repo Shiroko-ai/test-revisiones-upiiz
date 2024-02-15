@@ -17,7 +17,7 @@ interface TableProps {
 }
 
 export default function Table ({ data, actions, name }: TableProps): JSX.Element {
-  if (!data) return (<></>)
+  if (!data) return (<><h1 className="text-2xl font-bold text-gray-900 mb-10">{name}</h1></>)
   return (
         <>
             <h1 className="text-2xl font-bold text-gray-900 mb-10">{name}</h1>

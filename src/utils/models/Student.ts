@@ -25,12 +25,12 @@ const StudentSchema = new Schema({
     type: String,
     required: true
   },
-  ticket_number: {
+  ticketNumber: {
     type: String,
     required: true,
     unique: true
   },
-  carreer: {
+  career: {
     type: Schema.Types.ObjectId,
     ref: 'Career'
   },

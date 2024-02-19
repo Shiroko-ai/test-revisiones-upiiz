@@ -10,7 +10,7 @@ export async function connectDB (): Promise<void> {
   if (process.env.MONGODB_URL === undefined || process.env.DB_NAME === undefined) {
     throw new Error('MONGODB_URL or DB_NAME is not defined')
   }
-  const db = await connect(process.env.MONGODB_URL + process.env.DB_NAME)
+  const db = await connect(process.env.MONGODB_URL)
 
   conn.isConnected = db.connections[0].readyState
 }

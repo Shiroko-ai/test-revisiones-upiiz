@@ -22,7 +22,6 @@ export default function RegisterAlumnoPage (): JSX.Element {
                 <Form
                     title="Registro de alumnos"
                     url="/api/register-student"
-
                 >
                     <Input placeholder="Nombre" type="text" name="name" />
                     <Input

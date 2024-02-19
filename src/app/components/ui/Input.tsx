@@ -8,9 +8,10 @@ interface InputProps {
   placeholder: string
   name: string
   [key: string]: any
+  fetchedValue?: string
 }
-export default function Input ({ type, placeholder, name, ...rest }: InputProps): JSX.Element {
-  const [value, setValue] = useState('')
+export default function Input ({ type, placeholder, name, fetchedValue, ...rest }: InputProps): JSX.Element {
+  const [value, setValue] = useState(fetchedValue ?? '')
   const [error, setError] = useState(false)
   const handleChange = (e: any): void => {
     const value = e.target.value

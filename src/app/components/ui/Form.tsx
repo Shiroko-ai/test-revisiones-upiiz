@@ -6,9 +6,10 @@ interface FormProps {
   subtitle?: string
   children: React.ReactNode
   url: string
+  onSuccess?: () => void
 }
 
-export default function Form ({ title, subtitle, children, url }: FormProps): JSX.Element {
+export default function Form ({ title, subtitle, children, url, onSuccess }: FormProps): JSX.Element {
   const [message, setMessage] = useState('')
   async function handleSubmit (e: React.FormEvent<HTMLFormElement>): Promise<void> {
     e.preventDefault()
@@ -19,6 +20,11 @@ export default function Form ({ title, subtitle, children, url }: FormProps): JS
     })
     const data = await response.json()
     console.log(data)
+    if (data.success === true) {
+      if (onSuccess !== undefined) {
+        onSuccess()
+      }
+    }
     setMessage(data.message as string)
   }
   return (

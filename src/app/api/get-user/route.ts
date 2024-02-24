@@ -24,6 +24,14 @@ interface StudentDocument {
   career: CareerType | string
   status: string
 }
+interface Projections {
+  _id: number
+  password: number
+  id: number
+  __v: number
+  status: number
+  documents: number
+}
 export async function GET (request: Request): Promise<NextResponse> {
   const { searchParams } = new URL(request.url)
   console.log(searchParams)
@@ -41,8 +49,10 @@ export async function GET (request: Request): Promise<NextResponse> {
 
   console.log(role)
   let user = null
-  const projection = { _id: 0, password: 0, id: 0, __v: 0, status: 0 }
+  // eslint-disable-next-line @typescript-eslint/consistent-type-assertions
+  const projection = { _id: 0, password: 0, id: 0, __v: 0, status: 0 } as Projections
   if (role === 'student') {
+    projection.documents = 0
     if (isEdit) {
       user = await Student.findOne({ email }, { phone: 1, email: 1, _id: 0 })
 

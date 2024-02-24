@@ -19,7 +19,6 @@ export default function Form ({ title, subtitle, children, url, onSuccess }: For
       body: formData
     })
     const data = await response.json()
-    console.log(data)
     if (data.success === true) {
       if (onSuccess !== undefined) {
         onSuccess()

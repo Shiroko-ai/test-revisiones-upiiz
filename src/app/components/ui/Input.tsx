@@ -1,5 +1,7 @@
+/* eslint-disable @typescript-eslint/strict-boolean-expressions */
+/* eslint-disable @typescript-eslint/prefer-nullish-coalescing */
 'use client'
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 
 type InputType = 'text' | 'password' | 'email' | 'number'
 
@@ -11,8 +13,12 @@ interface InputProps {
   fetchedValue?: string
 }
 export default function Input ({ type, placeholder, name, fetchedValue, ...rest }: InputProps): JSX.Element {
-  const [value, setValue] = useState(fetchedValue ?? '')
+  // eslint-disable-next-line @typescript-eslint/strict-boolean-expressions, @typescript-eslint/prefer-nullish-coalescing
+  const [value, setValue] = useState(fetchedValue || '')
   const [error, setError] = useState(false)
+  useEffect(() => {
+    setValue(fetchedValue || '')
+  }, [fetchedValue])
   const handleChange = (e: any): void => {
     const value = e.target.value
     if (value.startsWith(' ') === true) {

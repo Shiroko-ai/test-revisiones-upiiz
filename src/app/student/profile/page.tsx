@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/non-nullable-type-assertion-style */
 'use client'
 
 import CenterContainer from '@/app/components/containers/CenterContainer'
@@ -6,8 +7,7 @@ import { useEffect, useState } from 'react'
 
 export default function StudentProfile (): JSX.Element {
   function visualizeDocument (key: any): void {
-    console.log(key)
-    window.open('http://localhost:3000/' + key.path, '_blank')
+    window.open('/' + key.path, '_blank')
   }
   const [data, setData] = useState<Array<Record<string, unknown>>>([])
   const [documents, setDocuments] = useState<Array<Record<string, unknown>>>([])

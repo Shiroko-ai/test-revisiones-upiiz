@@ -35,7 +35,7 @@ export default function Table ({ data, actions, name, hiddenNames, itemReference
   return (
         <>
             <h1 className="text-2xl font-bold text-gray-900 mb-10">{name}</h1>
-            <table className="max-w-[50%] w-full">
+            <table className="max-w-[50%] w-full min-w-max">
                 <thead className="bg-gray-200 border-b">
                     <tr>
                         {

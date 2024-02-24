@@ -33,8 +33,8 @@ const TeacherSchema = new Schema({
     required: true
   },
   academy: {
-    type: String,
-    enum: ['Sistemas', 'Matemáticas', 'Ambiental'],
+    type: Schema.Types.ObjectId,
+    ref: 'Academy',
     required: true
   },
   status: {

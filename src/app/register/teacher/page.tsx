@@ -1,8 +1,25 @@
+'use client'
 import Form from '@/app/components/ui/Form'
 import Input from '@/app/components/ui/Input'
 import Select from '@/app/components/ui/Select'
 import Button from '@/app/components/ui/Button'
+import { useEffect, useState } from 'react'
 export default function RegisterDocentePage (): JSX.Element {
+  const [academies, setAcademies] = useState<Array<Record<any, any>>>([])
+  useEffect(() => {
+    function fetchAcademies (): void {
+      fetch('/api/academies')
+        .then(async response => await response.json())
+        .then(data => {
+          console.log(data)
+          setAcademies(data as Array<Record<any, any>>)
+        }).catch(error => {
+          console.error(error)
+        }
+        )
+    }
+    fetchAcademies()
+  }, [])
   return (
 
             <Form
@@ -44,9 +61,9 @@ export default function RegisterDocentePage (): JSX.Element {
                     required
                 />
                 <Select name="academy" label='Academia' id='academy' >
-                    <option value="Sistemas">Sistemas</option>
-                    <option value="Ambiental">Ambiental</option>
-                    <option value="Matemáticas">Matemáticas</option>
+                   {academies.map((academy, index) => {
+                     return <option key={index} value={academy._id}>{academy.name}</option>
+                   })}
                 </Select>
 
                 <Button type="submit" value="Registrarse" />

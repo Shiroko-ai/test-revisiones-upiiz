@@ -16,7 +16,6 @@ export default function EditStudentProfilePage (): JSX.Element {
   }, [])
   return (
         <div>
-        <h1>Edit Profile Page</h1>
         <Form title='Editar datos de contacto' url='/api/edit-user'>
             <Input name="phone" type="text" placeholder='Teléfono' fetchedValue={fetchedData.phone} />
             <Input name="email" type="email" placeholder='Correo electrónico' fetchedValue={fetchedData.email}/>

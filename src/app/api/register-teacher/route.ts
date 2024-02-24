@@ -2,7 +2,7 @@ import Teacher from '@/utils/models/Teacher'
 import { connectDB } from '@/utils/mongoose'
 import validateFields from '@/utils/validateFields'
 import { NextResponse } from 'next/server'
-
+import Academy from '@/utils/models/Academy'
 export async function POST (request: Request): Promise<NextResponse> {
   await connectDB()
   try {
@@ -25,7 +25,8 @@ export async function POST (request: Request): Promise<NextResponse> {
     }
     const teacher = new Teacher(fields)
     await teacher.save()
-    return NextResponse.json({ message: 'Hello' })
+    await Academy.findOneAndUpdate({ _id: fields.academy }, { $push: { teachers: teacher._id } })
+    return NextResponse.json({ message: 'Se ha enviado el registro para su aprobación' }, { status: 200 })
   } catch (error) {
     console.log(error)
     return NextResponse.json({ message: 'Error en el servidor' }, { status: 500 })

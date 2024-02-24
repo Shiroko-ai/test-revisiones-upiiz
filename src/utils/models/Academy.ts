@@ -1,5 +1,4 @@
 import mongoose from 'mongoose'
-import { nanoid } from 'nanoid'
 
 const { Schema, model, models } = mongoose
 const AcademySchema = new Schema({

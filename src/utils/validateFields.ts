@@ -3,6 +3,7 @@ import Carreer from './models/Career'
 import validator from 'validator'
 import Teacher from './models/Teacher'
 import Admin from './models/Admin'
+import Academy from './models/Academy'
 interface FormData {
   name: string | null
   email: string | null
@@ -81,7 +82,7 @@ export default async function validateFields (FIELDS: Record<string, unknown>, U
     }
     return null
   } else if (USER_TYPE === 'TEACHER') {
-    console.log('TEACHER')
+    const academies = (await Academy.find({}, { _id: 1 }).lean()).map((academy: any) => academy._id.toString())
     if (!validator.isNumeric(FIELDS.employeeNumber as string, { no_symbols: true })) {
       errors.push('El número de empleado debe tener sólo números')
     }
@@ -98,7 +99,9 @@ export default async function validateFields (FIELDS: Record<string, unknown>, U
     if (!validator.isAlpha(FIELDS.name as string, 'es-ES', { ignore: ' ' })) {
       errors.push('El nombre solo debe contener letras')
     }
-
+    if (!academies.includes(FIELDS.academy)) {
+      errors.push('La academia no existe')
+    }
     if (errors.length > 0) {
       return errors.join(', ')
     }

@@ -38,7 +38,15 @@ const StudentSchema = new Schema({
     type: String,
     enum: ['pending', 'active'],
     required: true
-  }
+  },
+  documents: [{
+    name: {
+      type: String
+    },
+    path: {
+      type: String
+    }
+  }]
 })
 
 // eslint-disable-next-line @typescript-eslint/strict-boolean-expressions
